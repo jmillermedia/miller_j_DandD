@@ -1,7 +1,6 @@
 (() => {
 	// set up the puzzle pieces and boards
 	const puzzleButtons = document.querySelectorAll('#buttonHolder img'), // querySelectorAll one to many relationship; returns a NodeList of matching elements
-
 				puzzlePieces = document.querySelectorAll('.puzzle-image'),
 				dropZones = document.querySelectorAll('.drop-zone'),
 				gameBoard = document.querySelector(".puzzle-board"); //querySelector one to one relationship; returns the first matching element.
@@ -15,19 +14,28 @@
 		// and set the drop zone background
 
 		gameBoard.style.backgroundImage = `url(images/backGround${this.dataset.bgkey}.jpg)`;
-}
+	}
+
 		function allowDrag(event) {
 			//let the drag happen and store a reference to the ID of the element we're dragging
-			console.log('Started draging the image: ', event.targer.id);
+			console.log('Started draging the image: ', event.target.id);
+
+		event.dataTransfer.setData('draggedImage', this.id);
 		}
 
 		function allowDragOver(event) {
 			event.preventDefault();
 			console.log('Dragged something over me!');
+
 		}
 
 		function allowDrop(event) {
 			console.log('dropped something on me!');
+
+			let droppedImage = event.dataTransfer.getData('draggedImage');
+
+			event.target.appendChild(document.querySelector(`#${droppedImage}`));
+			// debugger;
 		}
 
 
@@ -39,9 +47,10 @@
 	puzzlePieces.forEach(piece => piece.addEventListener('dragstart', allowDrag));
 
 	dropZones.forEach(zone => {
-		zone.addEventListener('dragover, allowDragOver');
+		zone.addEventListener('dragover', allowDragOver);
 		zone.addEventListener('drop', allowDrop);
-		
+	});
+
 	//research call, apply and bind as JavaScript
 	changeImageSet.call(puzzleButtons[0]); // emulates a click on the first bottom button
 })();
