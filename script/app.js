@@ -5,15 +5,23 @@
 				dropZones = document.querySelectorAll('.drop-zone'),
 				gameBoard = document.querySelector(".puzzle-board"); //querySelector one to one relationship; returns the first matching element.
 
+				let imageNames = ['topLeft', 'topRight', 'bottomLeft', 'bottomRight'];
+
+				let children = gameBoard.children;
+
 				// add event handling here -> how is the user going to use our app?
 				// what triggers do we need?
 
 
 	function changeImageSet() {
 		// change all the image elements on the page -> draggable image sources,
+		 imageNames.forEach((piece, index) => {
+			 puzzlePieces[index].src = `images/${piece + this.dataset.bgkey}.jpg`;
+		 });
 		// and set the drop zone background
 
 		gameBoard.style.backgroundImage = `url(images/backGround${this.dataset.bgkey}.jpg)`;
+
 	}
 
 		function allowDrag(event) {
@@ -25,16 +33,19 @@
 
 		function allowDragOver(event) {
 			event.preventDefault();
-			console.log('Dragged something over me!');
+			// console.log('Dragged something over me!');
 
 		}
 
 		function allowDrop(event) {
-			console.log('dropped something on me!');
+			console.log(children);
 
 			let droppedImage = event.dataTransfer.getData('draggedImage');
 
 			event.target.appendChild(document.querySelector(`#${droppedImage}`));
+
+			event.target.replaceChild(event.target.id, 'draggedImage');
+
 			// debugger;
 		}
 

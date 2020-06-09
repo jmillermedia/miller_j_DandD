@@ -37,10 +37,27 @@ body {
 .puzzle-pieces img:nth-child(odd) { margin-left: auto }
 
 /* arrange the puzzle pieces on the board */
+.drop-zone img {
+	position: absolute;
+	bottom: 0;
+	padding: 0;
+	margin: 0;
+	width: auto;
+}
+
+.tl img, .bl img {
+	right: 0;
+}
+
+.br img, .bl img {
+	top: 0;
+}
+
 
 
 
 /* set up drop zones */
+
 .drop-zone {
 	width: 49.5%;
 	height: 49.5%;
