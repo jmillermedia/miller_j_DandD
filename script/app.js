@@ -7,7 +7,9 @@
 
 				let imageNames = ['topLeft', 'topRight', 'bottomLeft', 'bottomRight'];
 
-				let children = gameBoard.children;
+				let gameBoardChildren = gameBoard.children;
+
+				let puzzlePiecesChildren = puzzlePieces.children;
 
 				// add event handling here -> how is the user going to use our app?
 				// what triggers do we need?
@@ -21,6 +23,8 @@
 		// and set the drop zone background
 
 		gameBoard.style.backgroundImage = `url(images/backGround${this.dataset.bgkey}.jpg)`;
+
+		resetGame();
 
 	}
 
@@ -38,22 +42,35 @@
 		}
 
 		function allowDrop(event) {
-			console.log(children);
+			console.log(gameBoardChildren);
+
+			// console.log(puzzlePiecesChildren); //returns "undefined", I'm guessing because it's querySelectorAll. 
 
 			let droppedImage = event.dataTransfer.getData('draggedImage');
 
 			event.target.appendChild(document.querySelector(`#${droppedImage}`));
 
-			event.target.replaceChild(event.target.id, 'draggedImage');
+			if ('droppedImage' == 'droppedImage') {
+				event.dropZones.replaceChild('draggedImage', this.id);
+				// debugger;
+				dragged.parentNode.removeChild( dragged );
+				event.target.appendChild(document.querySelector(`#${droppedImage}`));
+			}
+			
+		}
 
-			// debugger;
+		// with the reset game function, I need to figure out how to replace the pieces and put them back onto the puzzleBoard.
+
+		function resetGame() {
+			console.log('The game is reset.');
+			gameBoard.removeChild(puzzlePieces);
 		}
 
 
 
 
 	// click on the bottom buttons to change the puzzle image we're working with
-	puzzleButtons.forEach(button => button.addEventListener('click', changeImageSet));
+	puzzleButtons.forEach(button => button.addEventListener('click', changeImageSet, resetGame)); 
 
 	puzzlePieces.forEach(piece => piece.addEventListener('dragstart', allowDrag));
 
