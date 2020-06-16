@@ -28,6 +28,14 @@
 
 	}
 
+	function resetGame() {
+			
+			if (gameBoard.children.length > 0) {
+				console.log(gameBoardChildren);
+				dropZones.removeChild(puzzlePieces);
+			}
+		}
+
 		function allowDrag(event) {
 			//let the drag happen and store a reference to the ID of the element we're dragging
 			console.log('Started draging the image: ', event.target.id);
@@ -49,31 +57,26 @@
 
 			let droppedImage = event.dataTransfer.getData('draggedImage');
 
-			if (event.target.children.length > 0) {
-				return;
+			if (this.children.length > 0) {
+				return; //Trevor went through this with me in the open lab. Need to remember return will halt the code.
 			}
-			event.target.appendChild(document.querySelector(`#${droppedImage}`));
+			this.appendChild(document.querySelector(`#${droppedImage}`)); 
 
 			// if () {
 			// 	event.dropZones.replaceChild('draggedImage', this.id);
 			// 	// debugger;
 			// 	dragged.parentNode.removeChild( dragged );
-			// 	event.target.appendChild(document.querySelector(`#${droppedImage}`));
+			// 	event.target.appendChild(document.querySelector(`#${droppedImage}`)); // attempted to replace the dragged image with the other image. It didn't work.
 			}
 			
 
 		// with the reset game function, I need to figure out how to replace the pieces and put them back onto the puzzleBoard.
 
-		function resetGame() {
-			console.log(gameBoardChildren);
-			// gameBoard.removeChild(puzzlePieces);
-		}
-
 
 
 
 	// click on the bottom buttons to change the puzzle image we're working with
-	puzzleButtons.forEach(button => button.addEventListener('click', changeImageSet, resetGame)); 
+	puzzleButtons.forEach(button => button.addEventListener('click', changeImageSet)); 
 
 	puzzlePieces.forEach(piece => piece.addEventListener('dragstart', allowDrag));
 
