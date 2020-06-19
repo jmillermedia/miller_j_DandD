@@ -18,27 +18,23 @@
 	function changeImageSet() {
 		// change all the image elements on the page -> draggable image sources,
 		 imageNames.forEach((piece, index) => {
+			 
+			let puzzlePieceAll = document.querySelector(".puzzle-pieces");
+			puzzlePieceAll.appendChild(puzzlePieces[index]);
+
 			 puzzlePieces[index].src = `images/${piece + this.dataset.bgkey}.jpg`;
 		 });
 		// and set the drop zone background
 
 		gameBoard.style.backgroundImage = `url(images/backGround${this.dataset.bgkey}.jpg)`;
-
-		resetGame();
-
 	}
 
-	function resetGame() {
 			
-			if (gameBoard.children.length > 0) {
-				console.log(gameBoardChildren);
-				dropZones.removeChild(puzzlePieces);
-			}
-		}
+
 
 		function allowDrag(event) {
 			//let the drag happen and store a reference to the ID of the element we're dragging
-			console.log('Started draging the image: ', event.target.id);
+			// console.log('Started draging the image: ', event.target.id);
 
 		event.dataTransfer.setData('draggedImage', this.id);
 		}
